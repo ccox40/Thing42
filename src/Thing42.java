@@ -140,7 +140,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public boolean removeFromPool(Thing42orNull member) throws IllegalArgumentException {
-        if(member == null) throw new NullPointerException();
+        if(member == null) throw new IllegalArgumentException();
         
         return pool.remove(member);
     }
@@ -153,7 +153,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      */
     @Override
     public boolean removePeer(Thing42orNull peer) throws IllegalArgumentException {
-        if(peer == null) throw new NullPointerException();
+        if(peer == null) throw new IllegalArgumentException();
         
         return peers.remove(peer);
     }
