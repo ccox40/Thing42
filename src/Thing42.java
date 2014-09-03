@@ -33,8 +33,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @throws NullPointerException If newPeer is null.
      */
     @Override
-    public void addPeer(Thing42orNull<K, D> newPeer) throws IllegalArgumentException {
-        if(newPeer == null) throw new IllegalArgumentException();
+    public void addPeer(Thing42orNull<K, D> newPeer) throws NullPointerException {
+        if(newPeer == null) throw new NullPointerException();
         
         peers.add(newPeer);
     }
@@ -46,8 +46,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @throws NullPointerException If newMember is null.
      */
     @Override
-    public void appendToPool(Thing42orNull<K, D> newMember) throws IllegalArgumentException {
-        if(newMember == null) throw new IllegalArgumentException();
+    public void appendToPool(Thing42orNull<K, D> newMember) throws NullPointerException {
+        if(newMember == null) throw new NullPointerException();
         
         pool.add(newMember);
     }
@@ -139,8 +139,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @throws NullPointerException If member is null.
      */
     @Override
-    public boolean removeFromPool(Thing42orNull member) throws IllegalArgumentException {
-        if(member == null) throw new IllegalArgumentException();
+    public boolean removeFromPool(Thing42orNull member) throws NullPointerException {
+        if(member == null) throw new NullPointerException();
         
         return pool.remove(member);
     }
@@ -152,8 +152,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
      * @throws NullPointerException If peer is null.
      */
     @Override
-    public boolean removePeer(Thing42orNull peer) throws IllegalArgumentException {
-        if(peer == null) throw new IllegalArgumentException();
+    public boolean removePeer(Thing42orNull peer) throws NullPointerException {
+        if(peer == null) throw new NullPointerException();
         
         return peers.remove(peer);
     }

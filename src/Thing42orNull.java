@@ -9,14 +9,14 @@ public interface Thing42orNull<K, D> {
      * @param newPeer The peer to be added.
      * @throws NullPointerException If newPeer is null.
      */
-    void addPeer(Thing42orNull<K, D> newPeer) throws IllegalArgumentException;
+    void addPeer(Thing42orNull<K, D> newPeer) throws NullPointerException;
     /**
      * Append a member to the pool of this object.
      * 
      * @param newMember The object to be appended to the pool.
      * @throws NullPointerException If newMember is null.
      */
-    void appendToPool(Thing42orNull<K, D> newMember) throws IllegalArgumentException;
+    void appendToPool(Thing42orNull<K, D> newMember) throws NullPointerException;
     /**
      * Access the data of this object.
      * @return The data of this object.
@@ -65,14 +65,14 @@ public interface Thing42orNull<K, D> {
      *         call.
      * @throws NullPointerException If member is null.
      */
-    boolean removeFromPool(Thing42orNull<K, D> member) throws IllegalArgumentException;
+    boolean removeFromPool(Thing42orNull<K, D> member) throws NullPointerException;
     /**
      * Remove a peer from this object.
      * @param peer The peer to be removed from this object.
      * @return Returns true if a peer was removed as a result of this call.
      * @throws NullPointerException If peer is null.
      */
-    boolean removePeer(Thing42orNull<K, D> peer) throws IllegalArgumentException;
+    boolean removePeer(Thing42orNull<K, D> peer) throws NullPointerException;
     /**
      * Modify the data of this object.
      * @param newData The updated data for this object.
