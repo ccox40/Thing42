@@ -9,8 +9,10 @@ import java.util.stream.Collectors; // This does not exist in Java 7 - consider 
 public class Thing42<K, D> implements Thing42orNull<K, D> {
 	private final K key;
 	private final long level;
+	private final Collection<Thing42orNull<K, D>> peers;
+	private final List<Thing42orNull<K, D>> pool;
+	private D data;
 
-<<<<<<< HEAD
     /**
      * Add a peer to this object.
      *
@@ -36,12 +38,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         
         pool.add(newMember);
     }
-=======
-	private final Collection<Thing42orNull<K, D>> peers;
-	private final List<Thing42orNull<K, D>> pool;
-
-	private D data;
->>>>>>> FETCH_HEAD
 
 	public Thing42(K key, long level, D data) {
 		this.key = key;
@@ -53,40 +49,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 		peers = new LinkedList<>();
 		// Pool must be an ordered list.
 		pool = new LinkedList<>();
-	}
-
-	/**
-	 * Add a peer to this object.
-	 *
-	 * @param newPeer
-	 *            The peer to be added.
-	 * @throws NullPointerException
-	 *             If newPeer is null.
-	 */
-	@Override
-	public void addPeer(Thing42orNull<K, D> newPeer)
-			throws IllegalArgumentException {
-		if (newPeer == null)
-			throw new IllegalArgumentException();
-
-		peers.add(newPeer);
-	}
-
-	/**
-	 * Append a member to the pool of this object.
-	 * 
-	 * @param newMember
-	 *            The object to be appended to the pool.
-	 * @throws NullPointerException
-	 *             If newMember is null.
-	 */
-	@Override
-	public void appendToPool(Thing42orNull<K, D> newMember)
-			throws IllegalArgumentException {
-		if (newMember == null)
-			throw new IllegalArgumentException();
-
-		pool.add(newMember);
 	}
 
 	/**
@@ -140,6 +102,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 		return result;
 	}
 
+
 	/**
 	 * Access all peers.
 	 * 
@@ -150,7 +113,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 	public Collection<Thing42orNull<K, D>> getPeersAsCollection() {
 		return peers;
 	};
-
+	
 	/**
 	 * Access all peers with a specified key.
 	 * 
@@ -166,7 +129,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
                     .collect(Collectors.toList());
     }
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
      /**
      * Access all members of the pool.
      * @return All known members of this object's pool. An empty collection is
@@ -203,7 +166,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         
         return peers.remove(peer);
     }
-=======
+    
 	/*
 	 * Consider replacing the above code as Collectors does not exist in Java 7.
 	 * this code may be a valid substitue: 
@@ -214,55 +177,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 	 * output.add(peer); } 
 	 * return output;
 	 */
-
-	/**
-	 * Access all members of the pool.
-	 * 
-	 * @return All known members of this object's pool. An empty collection is
-	 *         returned if there are no pool members.
-	 */
-	@Override
-	public List<Thing42orNull<K, D>> getPoolAsList() {
-		return pool;
-	};
->>>>>>> FETCH_HEAD
-
-	/**
-	 * Remove a member from this object's pool.
-	 * 
-	 * @param member
-	 *            The member to be removed from the pool.
-	 * @return Returns true if a pool member was removed as a result of this
-	 *         call.
-	 * @throws NullPointerException
-	 *             If member is null.
-	 */
-	@Override
-	public boolean removeFromPool(Thing42orNull member)
-			throws IllegalArgumentException {
-		if (member == null)
-			throw new IllegalArgumentException();
-
-		return pool.remove(member);
-	}
-
-	/**
-	 * Remove a peer from this object.
-	 * 
-	 * @param peer
-	 *            The peer to be removed from this object.
-	 * @return Returns true if a peer was removed as a result of this call.
-	 * @throws NullPointerException
-	 *             If peer is null.
-	 */
-	@Override
-	public boolean removePeer(Thing42orNull peer)
-			throws IllegalArgumentException {
-		if (peer == null)
-			throw new IllegalArgumentException();
-
-		return peers.remove(peer);
-	}
 
 	/**
 	 * Modify the data of this object.
