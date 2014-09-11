@@ -230,8 +230,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 
         Thing42<K, D> other = (Thing42<K, D>) obj;
 
-        return (key != null && this.key.equals(other.key))
-                && (data != null && this.data.equals(other.data))
+        return (key == other.key || key != null && this.key.equals(other.key))
+                && (data == other.data || data != null && this.data.equals(other.data))
                 && this.peers.equals(other.peers)
                 && this.pool.equals(other.pool) && this.level == other.level;
     }
