@@ -1,10 +1,12 @@
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors; // This does not exist in Java 7 - consider replacing
+import java.util.stream.Collectors;
 
 public class Thing42<K, D> implements Thing42orNull<K, D> {
+
     private final K key;
     private final long level;
     private final Collection<Thing42orNull<K, D>> peers;
@@ -18,41 +20,45 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 
         // Peers is not required to be ordered, but this makes for the simplest
         // implementation.
-        peers = new LinkedList<Thing42orNull<K,D>>();
+        peers = new LinkedList<Thing42orNull<K, D>>();
         // Pool must be an ordered list.
-        pool = new LinkedList<Thing42orNull<K,D>>();
+        pool = new LinkedList<Thing42orNull<K, D>>();
     }
 
-     /**
+    /**
      * Add a peer to this object.
      *
-     * @param newPeer The peer to be added.
-     * @throws NullPointerException If newPeer is null.
+     * @param newPeer the peer to be added
+     * @throws NullPointerException if the specified peer is null
      */
     @Override
     public void addPeer(Thing42orNull<K, D> newPeer) throws NullPointerException {
-        if(newPeer == null) throw new NullPointerException();
-        
+        if(newPeer == null) {
+            throw new NullPointerException();
+        }
+
         peers.add(newPeer);
     }
 
     /**
      * Append a member to the pool of this object.
-     * 
-     * @param newMember The object to be appended to the pool.
-     * @throws NullPointerException If newMember is null.
+     *
+     * @param newMember the object to be appended to the pool
+     * @throws NullPointerException if the specified item is null
      */
     @Override
     public void appendToPool(Thing42orNull<K, D> newMember) throws NullPointerException {
-        if(newMember == null) throw new NullPointerException();
-        
+        if(newMember == null) {
+            throw new NullPointerException();
+        }
+
         pool.add(newMember);
     }
 
     /**
-     * Access the data of this object.
-     * 
-     * @return The data of this object.
+     * Access the data of this Thing42.
+     *
+     * @return the data of this object
      */
     @Override
     public D getData() {
@@ -60,9 +66,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     }
 
     /**
-     * Access the key of this object.
-     * 
-     * @return The key of this object.
+     * Access the key of this Thing42.
+     *
+     * @return the key of this object
      */
     @Override
     public K getKey() {
@@ -70,9 +76,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     }
 
     /**
-     * Access the level of this object.
-     * 
-     * @return The level of this object.
+     * Access the level of this Thing42.
+     *
+     * @return the level of this object
      */
     @Override
     public long getLevel() {
@@ -81,18 +87,17 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 
     /**
      * Access a peer matching the specified key.
-     * 
-     * @param key
-     *            The search key.
-     * @return Any one peer this object knows with a matching key; null if no
-     *         match is found.
+     *
+     * @param key the search key
+     * @return any peer known by this object that matches the given key; null if
+     * no match
      */
     @Override
     public Thing42orNull<K, D> getOnePeer(K key) {
         Thing42orNull<K, D> result = null;
 
-        for (Thing42orNull<K, D> thing : peers) {
-            if (thing.getKey().equals(key)) {
+        for(Thing42orNull<K, D> thing : peers) {
+            if(thing.getKey().equals(key)) {
                 result = thing;
             }
         }
@@ -100,106 +105,118 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         return result;
     }
 
-
     /**
      * Access all peers.
-     * 
-     * @return All peers known by this object. An empty collection is returned
-     *         if there are no known peers.
+     *
+     * @return all peers known by this object; if no peers then returns a
+     * collection with size() == 0.
      */
     @Override
     public Collection<Thing42orNull<K, D>> getPeersAsCollection() {
         return peers;
-    };
-    
+    }
+
+    ;
+
     /**
-     * Access all peers with a specified key.
-     * 
-     * @param key
-     *            The key to match.
-     * @return All peers with a matching key. An empty collection is returned if
-     *         there are no known peers.
+     * Access all peers matching the specified key.
+     *
+     * @param key the search key.
+     * @return all peers known by this object that match the given key; if no
+     *         peer matches then returns a collection with size() == 0.
      */
     @Override
     public Collection<Thing42orNull<K, D>> getPeersAsCollection(K key) {
         return peers.stream()
-                    .filter((thing) -> (thing.getKey() == key))
-                    .collect(Collectors.toList());
+                .filter((thing) -> (thing.getKey() == key))
+                .collect(Collectors.toList());
     }
-   
-//<<<<<<< HEAD
-     /**
+
+    /**
      * Access all members of the pool.
-     * @return All known members of this object's pool. An empty collection is
-     *         returned if there are no pool members.
+     *
+     * @return all members of the pool known by this object; if no members then
+     * returns a List with size() == 0.
      */
     @Override
     public List<Thing42orNull<K, D>> getPoolAsList() {
         return pool;
-    };
+    }
+
+    ;
 
     /**
-     * Remove a member from this object's pool.
-     * @param member The member to be removed from the pool.
-     * @return Returns true if a pool member was removed as a result of this
-     *         call.
-     * @throws NullPointerException If member is null.
+     * Remove a single instance of the specified object from this object's pool.
+     *
+     * @param member the member to be removed from the pool
+     * @return true if a pool member was removed as a result of this call
+     * @throws NullPointerException if the specified parameter is null
      */
     @Override
     public boolean removeFromPool(Thing42orNull<K, D> member) throws NullPointerException {
-        if(member == null) throw new NullPointerException();
-        
+        if(member == null) {
+            throw new NullPointerException();
+        }
+
         return pool.remove(member);
     }
 
     /**
-     * Remove a peer from this object.
-     * @param peer The peer to be removed from this object.
-     * @return Returns true if a peer was removed as a result of this call.
-     * @throws NullPointerException If peer is null.
+     * Remove a single instance of the specified peer from this object.
+     *
+     * @param peer the peer to be removed
+     * @return Returns true if a peer was removed as a result of this call
+     * @throws NullPointerException if the specified peer is null
      */
     @Override
     public boolean removePeer(Thing42orNull<K, D> peer) throws NullPointerException {
-        if(peer == null) throw new NullPointerException();
-        
+        if(peer == null) {
+            throw new NullPointerException();
+        }
+
         return peers.remove(peer);
     }
-    
-    /*
-     * Consider replacing the above code as Collectors does not exist in Java 7.
-     * this code may be a valid substitue: 
-     * Collection<Thing42orNull> 
-     * output =  * Collections.emptySet(); 
-     * for (Thing42orNull peer : peers){ 
-     * if    * (peer.getKey() == key) 
-     * output.add(peer); } 
-     * return output;
-     */
 
     /**
-     * Modify the data of this object.
-     * 
-     * @param newData
-     *            The updated data for this object.
+     * Modify the data of this Thing42.
+     *
+     * @param newData the updated data for this object
      */
     @Override
     public void setData(D newData) {
         data = newData;
     }
 
+    /**
+     * Determines whether or not the specified Object is equal to this
+     * Thing42orNull. The specified Object is equal to this Thing42orNull if it
+     * is an instance of Thing42; if its level is the same as this
+     * Thing42orNull; and if its key, data, peers, and pool are the same as this
+     * Thing42orNull via the equals predicate.
+     *
+     * @param obj an Object to be compared with this Thing42orNull.
+     * @return true if obj is an instance of Thing42 and has the same values;
+     * false otherwise.
+     */
     @SuppressWarnings("unchecked")
-	@Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Thing42))
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Thing42)) {
             return false;
+        }
 
-        Thing42<K, D> other = (Thing42<K, D>) o;
+        Thing42<K, D> other = (Thing42<K, D>) obj;
 
         return this.key.equals(other.key) && this.data.equals(other.data)
                 && this.peers.equals(other.peers)
                 && this.pool.equals(other.pool) && this.level == other.level;
     }
 
+    /**
+     * Returns the hashcode for this Thing42orNull.
+     *
+     * @return the hashcode for this Thing42orNull
+     */
     @Override
     public int hashCode() {
         // This was generated entirely by NetBeans.
@@ -210,11 +227,5 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         hash = 19 * hash + Objects.hashCode(this.pool);
         hash = 19 * hash + Objects.hashCode(this.data);
         return hash;
-    }
-
-    @Override
-    public String toString() {
-        return String
-                .format("(Key: %s, Level: %d, Data: %s)", key, level, data);
     }
 }
