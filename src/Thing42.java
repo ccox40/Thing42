@@ -1,4 +1,3 @@
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -6,7 +5,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Thing42<K, D> implements Thing42orNull<K, D> {
-
     private final K key;
     private final long level;
     private final Collection<Thing42orNull<K, D>> peers;
@@ -128,8 +126,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
     @Override
     public Collection<Thing42orNull<K, D>> getPeersAsCollection(K key) {
         return peers.stream()
-                .filter((thing) -> (thing.getKey() == key))
-                .collect(Collectors.toList());
+                    .filter((thing) -> (thing.getKey().equals(key)))
+                    .collect(Collectors.toList());
     }
 
     /**
