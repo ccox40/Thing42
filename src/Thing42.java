@@ -2,7 +2,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.HashSet;
 import java.util.stream.Collectors; // This does not exist in Java 7 - consider replacing
 
 public class Thing42<K, D> implements Thing42orNull<K, D> {
@@ -19,7 +18,7 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 
         // Peers is not required to be ordered, but this makes for the simplest
         // implementation.
-        peers = new HashSet<Thing42orNull<K,D>>();
+        peers = new LinkedList<Thing42orNull<K,D>>();
         // Pool must be an ordered list.
         pool = new LinkedList<Thing42orNull<K,D>>();
     }
