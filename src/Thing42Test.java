@@ -1,3 +1,5 @@
+package src;
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -10,16 +12,25 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author David Chang, Cole Risch
- * @version 2 This is a JUNIT test class for Thing42.java. Each method will test
- *          each thing42 method's functionality.
+ * JUnit test class for Thing42. 
+ * Each method will test each method's functionality in Thing42.java
+ * 
+ * @author David Chang
+ * @author Cole Risch
+ * @author Miguel Roman-Roman
+ * @author Christopher
+ * @author CJ Collins
+ * @version Fall 2014
  */
 public class Thing42Test {
 
 	private Thing42<String, Integer> peer, peer1, peer2, peer3;
-	Thing42<Object, Object> thing, thing1, thing2, thing3;
+	private Thing42<Object, Object> thing, thing1, thing2, thing3;
 	private Object key1, key2;
-
+	
+	/**
+	 * Initialize Thing42 objects
+	 */
 	@Before
 	public void init() {
 		// create one set of Thing42s for general testing
@@ -36,6 +47,9 @@ public class Thing42Test {
 		thing3 = new Thing42<Object, Object>(key2, 75, null);
 	}
 
+	/**
+	 * Test the setData method
+	 */
 	@Test
 	public void testSetData() {
 		// basic tests
@@ -51,6 +65,9 @@ public class Thing42Test {
 		assertTrue(thing == thing.getData());
 	}
 
+	/**
+	 * Test the addPeer method
+	 */
 	@Test
 	public void testAddPeer() {
 		Thing42<String, Integer> testPeer = new Thing42<String, Integer>(
@@ -92,7 +109,10 @@ public class Thing42Test {
 			fail();
 		}
 	}
-
+	
+	/**
+	 * Test getKey method
+	 */
 	@Test
 	public void testGetKey() {
 		// basic test
@@ -100,6 +120,9 @@ public class Thing42Test {
 		assertEquals(key1, thing.getKey());
 	}
 
+	/**
+	 * Test getData method
+	 */
 	@Test
 	public void testGetData() {
 		// basic test
@@ -107,12 +130,18 @@ public class Thing42Test {
 		// complex tests handled under other testing functions
 	}
 
+	/**
+	 * Test getLevel method
+	 */
 	@Test
 	public void testGetLevel() {
 		// only basic test needed
 		assertEquals(1, peer2.getLevel());
 	}
 
+	/**
+	 * Test getPeersAsCollection method
+	 */
 	@Test
 	public void testGetPeersAsCollection() {
 		// prep
@@ -155,6 +184,9 @@ public class Thing42Test {
 		assertEquals(4, thingCollection.size());
 	}
 
+	/**
+	 * Test getPoolAsList method
+	 */
 	@Test
 	public void testGetPoolAsList() {
 		// prep
@@ -179,6 +211,9 @@ public class Thing42Test {
 		assertTrue(thingList.contains(peer));
 	}
 
+	/**
+	 * Test removeFromPool method
+	 */
 	@Test
 	public void testRemoveFromPool() {
 		// basic test
@@ -207,6 +242,9 @@ public class Thing42Test {
 		assertTrue(!thingList.contains(peer2));
 	}
 
+	/**
+	 * Test removePeer method
+	 */
 	@Test
 	public void testRemovePeer() {
 		// prep
@@ -243,5 +281,83 @@ public class Thing42Test {
 		// attempt to remove member that doesn't exist
 		assertFalse(peer.removePeer(peer3));
 	}
-
+	
+	/**
+	 * Test equals method
+	 */
+	@Test
+	public void testEquals(){
+	    //test self equality
+		assertTrue(peer.equals(peer));
+		assertTrue(peer1.equals(peer1));
+		assertTrue(peer2.equals(peer2));
+		assertTrue(peer3.equals(peer3));
+		
+		assertFalse(peer.equals(peer1));
+		assertFalse(peer1.equals(peer2));
+		assertFalse(peer2.equals(peer3));
+		
+		//test equality with peers
+		Thing42<String, Integer> temp = new Thing42<String, Integer>("Key1", 1, 10);
+		Thing42<String, Integer> temp2 = new Thing42<String, Integer>("Key1", 1, 10);
+		assertTrue(temp.equals(temp2));
+		
+		temp.addPeer(peer1);
+		
+		assertFalse(temp.equals(peer1));
+		assertFalse(temp.equals(temp2));
+		
+		temp2.addPeer(peer1);
+		assertTrue(temp.equals(temp2));
+		
+		temp.addPeer(peer1);
+		assertTrue(temp.equals(temp2));
+		
+		temp.addPeer(peer2);
+		temp.addPeer(peer3);
+		temp2.addPeer(peer3);
+		temp2.addPeer(peer2);
+		assertTrue(temp.equals(temp2));
+		
+		//test equality with pool
+		temp = new Thing42<String, Integer>("Key1", 1, 10);
+		temp2 = new Thing42<String, Integer>("Key1", 1, 10);
+		assertTrue(temp.equals(temp2));
+		
+		temp.appendToPool(peer1);
+		assertFalse(temp.equals(temp2));
+		
+		temp2.appendToPool(peer1);
+		assertTrue(temp.equals(temp2));
+		
+		temp.appendToPool(peer2);
+		temp.appendToPool(peer1);
+		temp.appendToPool(peer3);
+		temp2.appendToPool(peer3);
+		temp2.appendToPool(peer2);
+		temp2.appendToPool(peer1);
+		assertFalse(temp.equals(temp2));
+		
+	}
+	
+	/**
+	 * Test hashcode method
+	 */
+	@Test
+	public void testHashcode(){
+	    //test hashcode is persistent
+		assertTrue(peer.hashCode() == peer.hashCode());
+		assertTrue(peer1.hashCode() == peer1.hashCode());
+		assertTrue(peer2.hashCode() == peer2.hashCode());
+		assertTrue(thing.hashCode() == thing.hashCode());
+		assertTrue(thing1.hashCode() == thing1.hashCode());
+		assertTrue(thing2.hashCode() == thing2.hashCode());
+		assertTrue(thing3.hashCode() == thing3.hashCode());
+		
+		//test hashcode uniqueness
+		assertFalse(peer.hashCode() == peer1.hashCode());
+		assertFalse(peer1.hashCode() == peer2.hashCode());
+		assertFalse(peer2.hashCode() == peer3.hashCode());
+		assertFalse(thing.hashCode() == peer1.hashCode());
+	}
 }
