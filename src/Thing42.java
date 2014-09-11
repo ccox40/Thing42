@@ -168,8 +168,6 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
         return pool;
     }
 
-    ;
-
     /**
      * Remove a single instance of the specified object from this object's pool.
      *
@@ -232,7 +230,8 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 
         Thing42<K, D> other = (Thing42<K, D>) obj;
 
-        return this.key.equals(other.key) && this.data.equals(other.data)
+        return (key != null && this.key.equals(other.key))
+                && (data != null && this.data.equals(other.data))
                 && this.peers.equals(other.peers)
                 && this.pool.equals(other.pool) && this.level == other.level;
     }
