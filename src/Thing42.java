@@ -4,6 +4,33 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * An object of type Thing42 has five attributes. There are two immutable
+ * attributes: a generic attribute known as its key and an integer-valued
+ * attribute known as its level. There is also a generic mutable attribute known
+ * as its data. Values of key, level, and data are assigned at object creation.
+ * In addition, each Thing42 object has an unordered collection of Thing42
+ * objects known as its<i>peers</i> as well as an ordered collection of Thing42
+ * objects known as its <i>pool</i>.
+ *
+ * <pre> +-----------+
+ * |  Thing42  |
+ * +-----------+
+ * | Key       |
+ * | Level     |
+ * | Data      |
+ * | Peers...  |
+ * | Pool...   |
+ * +-----------+</pre>
+ *
+ * @author David Chang
+ * @author Cole Risch
+ * @author Miguel Roman-Roman
+ * @author Christopher Cox
+ * @author CJ Collins
+ *
+ * @version Fall 2014 02
+ */
 public class Thing42<K, D> implements Thing42orNull<K, D> {
     private final K key;
     private final long level;
@@ -18,9 +45,9 @@ public class Thing42<K, D> implements Thing42orNull<K, D> {
 
         // Peers is not required to be ordered, but this makes for the simplest
         // implementation.
-        peers = new LinkedList<Thing42orNull<K, D>>();
+        peers = new LinkedList<>();
         // Pool must be an ordered list.
-        pool = new LinkedList<Thing42orNull<K, D>>();
+        pool = new LinkedList<>();
     }
 
     /**
