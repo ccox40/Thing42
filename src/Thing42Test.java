@@ -315,7 +315,7 @@ public class Thing42Test {
 		temp.addPeer(peer3);
 		temp2.addPeer(peer3);
 		temp2.addPeer(peer2);
-		assertTrue(temp.equals(temp2));
+		assertFalse(temp.equals(temp2));
 		
 		//test equality with pool
 		temp = new Thing42<String, Integer>("Key1", 1, 10);
