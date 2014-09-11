@@ -24,7 +24,10 @@ public class Thing42Test {
 
 	private Thing42<String, Integer> peer, peer1, peer2, peer3;
 	private Thing42<Object, Object> thing, thing1, thing2, thing3;
-	private Object key1, key2;
+	private Object key1 = "key1";
+	private Object key2 = null;
+	private Object data1 = "some data";
+	private Object data2 = null;
 	
 	/**
 	 * Initialize Thing42 objects
@@ -308,9 +311,6 @@ public class Thing42Test {
 		temp2.addPeer(peer1);
 		assertTrue(temp.equals(temp2));
 		
-		temp.addPeer(peer1);
-		assertTrue(temp.equals(temp2));
-		
 		temp.addPeer(peer2);
 		temp.addPeer(peer3);
 		temp2.addPeer(peer3);
@@ -336,6 +336,17 @@ public class Thing42Test {
 		temp2.appendToPool(peer1);
 		assertFalse(temp.equals(temp2));
 		
+		//testing Edge Cases
+        thing = new Thing42<Object, Object>(key1, 50, null);
+        thing1 = new Thing42<Object, Object>(key1, 50, data1);
+        thing2 = new Thing42<Object, Object>(key2, 50, data1);
+        thing3 = new Thing42<Object, Object>(key2, 75, data1);
+
+        assertFalse(thing.equals(thing1));
+        assertFalse(thing1.equals(thing2));
+        assertFalse(thing2.equals(thing3)); 
+        
+        assertTrue(thing.equals(thing));
 	}
 	
 	/**
